@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: skillquest-api
+    runtime: node
+    rootDir: .
+    buildCommand: npm install && npx prisma generate --schema prisma/schema.postgresql.prisma && npx prisma db push --schema prisma/schema.postgresql.prisma --accept-data-loss
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PROVIDER
+        value: postgresql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: skillquest-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://skillquest.vercel.app   # update after Vercel deploy
+      - key: OPENAI_API_KEY
+        sync: false   # paste manually in Render dashboard
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PREMIUM_PRICE_ID
+        sync: false
+
+databases:
+  - name: skillquest-db
+    databaseName: skillquest
+    plan: free

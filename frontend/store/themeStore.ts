@@ -1,0 +1,25 @@
+'use client'
+/**
+ * Theme Store — persists dark/light preference across sessions
+ */
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+
+type Theme = 'dark' | 'light'
+
+interface ThemeStore {
+  theme: Theme
+  toggle: () => void
+  setTheme: (t: Theme) => void
+}
+
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      theme: 'dark',
+      toggle:   () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
+      setTheme: (theme) => set({ theme }),
+    }),
+    { name: 'skillquest-theme' }
+  )
+)
