@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "build": "prisma generate",
+    "build": "prisma generate --schema prisma/schema.postgresql.prisma",
+    "postinstall": "prisma generate --schema prisma/schema.postgresql.prisma || true",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:deploy": "prisma migrate deploy",

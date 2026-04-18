@@ -1,0 +1,21 @@
+[app]
+name = "skillquest-api"
+primary_region = "sin"     # Singapore — closest free region to South Asia
+
+[build]
+
+[env]
+NODE_ENV = "production"
+PORT = "8080"
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ["app"]
+
+[[vm]]
+size = "shared-cpu-1x"
+memory = "256mb"
